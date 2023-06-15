@@ -274,21 +274,17 @@ export class News extends Component {
     }
   render() {
     return (
-      <div className='container my-3'>
+      <div className='container my-3' >
     <h2>NewsMonkey - top Headlines</h2>   
-    <div className='row'>  
-    <div className='col-md-4'>
-    <NewsItem title="my title" description="my description" ImageUrl="https://sportshub.cbsistatic.com/i/r/2023/06/15/cbc4c602-2055-4994-9591-73f388ad5a18/thumbnail/1200x675/10b5ed7c77bc50e67db8f8888f163c43/us-open-hill-sign-p3-g.png"/> 
-    </div> 
-    <div className='col-md-4'>
-    <NewsItem title="my title" description="my description"/> 
-    </div> 
-    <div className='col-md-4'>
-    <NewsItem title="my title" description="my description"/> 
-    </div> 
-    
-
-        </div>     
+    <div className='row'>
+      {this.state.articles.map((element)=>{
+       return  <div className='col-md-4' key={element.url}>
+        <NewsItem title={element.title.slice(0,44)} description={element.description?.slice(0,88)} newsUrl={element.url} ImageUrl={element.urlToImage}/> 
+        </div>
+      })}
+     
+   
+      </div>     
 
     </div>
     )
