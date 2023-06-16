@@ -4,10 +4,11 @@ import Spinner from "./Spinner"
 import PropTypes from 'prop-types'
 
 
+
 export class News extends Component {
 
   static defaultProps = {
-    country:'in',
+    country:'us',
     pagesize:8,
   }
 
@@ -81,6 +82,9 @@ export class News extends Component {
 
 
   render() {
+
+    
+ 
     return (
       <div className='container my-3' >
     <h1 className='text-center my-4' style={{margin:"30px 0px"}}>NewsMonkey - TOP HEADLINES</h1> 
