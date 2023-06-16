@@ -1,11 +1,24 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from "./Spinner"
+import PropTypes from 'prop-types'
+
 
 export class News extends Component {
-    articles=[
-       
-        ]
+
+  static defaultProps={
+    country:'in',
+    pagesize:8,
+  }
+
+  static PropTypes ={
+    country:  this.PropTypes.String,
+    pagesize:PropTypes.number,
+  }
+
+  
+
+    articles=[ ]
         
     constructor(){
         super();
@@ -51,10 +64,12 @@ export class News extends Component {
       }
       else
       {
-      console.log("Previous click");
+     
       let url=`https://newsapi.org/v2/everything?domains=wsj.com&apiKey=4136a686f9784b0cae639181c30d9814&page=${this.state.page+1}&pagesize=${this.props.pagesize}`;
+      this.setState({loading:true})
       let data=await fetch(url);
       let parsedData=await data.json();
+      this.setState({loading:false})
       this.setState({
         articles:parsedData.articles,
         page:this.state.page+1
