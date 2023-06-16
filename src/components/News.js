@@ -272,6 +272,14 @@ export class News extends Component {
         }
         
     }
+
+    async componentDidMount(){
+      let url="https://newsapi.org/v2/everything?q=apple&from=2023-06-15&to=2023-06-15&sortBy=popularity&apiKey=4136a686f9784b0cae639181c30d9814"
+      let data=await fetch(url);
+      let parsedData=await data.json();
+      console.log(parsedData)
+      this.setState({articles:parsedData.articles})
+    }
   render() {
     return (
       <div className='container my-3' >
