@@ -6,13 +6,13 @@ import PropTypes from 'prop-types'
 
 export class News extends Component {
 
-  static defaultProps={
+  static defaultProps = {
     country:'in',
     pagesize:8,
   }
 
-  static PropTypes ={
-    country:  this.PropTypes.String,
+  static propTypes ={
+    country: PropTypes.string,
     pagesize:PropTypes.number,
   }
 
@@ -32,7 +32,7 @@ export class News extends Component {
     }
 
     async componentDidMount(){
-      let url=`https://newsapi.org/v2/everything?domains=wsj.com&apiKey=4136a686f9784b0cae639181c30d9814&page=1&pagesize=${this.props.pagesize}`
+      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4136a686f9784b0cae639181c30d9814&page=1&pagesize=${this.props.pagesize}`
       this.setState({loading:true})
       let data=await fetch(url);
       let parsedData=await data.json();
@@ -45,7 +45,7 @@ export class News extends Component {
     handlePreviousClick =async()=>{
       
         console.log("Previous click");
-        let url=`https://newsapi.org/v2/everything?domains=wsj.com&apiKey=4136a686f9784b0cae639181c30d9814&page=${this.state.page-1}&pagesize=${this.props.pagesize}`;
+        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4136a686f9784b0cae639181c30d9814&page=${this.state.page-1}&pagesize=${this.props.pagesize}`;
         this.setState({loading:true})
         let data=await fetch(url);
         let parsedData=await data.json();
@@ -65,7 +65,7 @@ export class News extends Component {
       else
       {
      
-      let url=`https://newsapi.org/v2/everything?domains=wsj.com&apiKey=4136a686f9784b0cae639181c30d9814&page=${this.state.page+1}&pagesize=${this.props.pagesize}`;
+      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4136a686f9784b0cae639181c30d9814&page=${this.state.page+1}&pagesize=${this.props.pagesize}`;
       this.setState({loading:true})
       let data=await fetch(url);
       let parsedData=await data.json();
@@ -83,7 +83,7 @@ export class News extends Component {
   render() {
     return (
       <div className='container my-3' >
-    <h1 className='text-center my-4'>NewsMonkey - TOP HEADLINES</h1> 
+    <h1 className='text-center my-4' style={{margin:"30px 0px"}}>NewsMonkey - TOP HEADLINES</h1> 
     <div className="text-center my-4">
     {this.state.loading && <Spinner/>}
     </div>  
