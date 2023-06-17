@@ -17,69 +17,64 @@ export class News extends Component {
     pagesize:PropTypes.number,
   }
 
-  
+    capitalizeFirstLetter= (string)=>{
+      return string.charAt(0).toUpperCase()+string.slice(1);
+
+    }
 
     
         
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             articles:[],
             loading:false,
-            page:1 //current state
-
+            page:1 
+          
         }
+
+        document.title=`${this.capitalizeFirstLetter(this.props.category)}-News Monkey`
+
+        
         
     }
+    
+    async UpdateNews(){
 
-    async componentDidMount(){
-      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4136a686f9784b0cae639181c30d9814&page=1&pagesize=${this.props.pagesize}`
+      const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4136a686f9784b0cae639181c30d9814&page=1&pagesize=${this.props.pagesize}`
       this.setState({loading:true})
       let data=await fetch(url);
       let parsedData=await data.json();
       console.log(parsedData)
       this.setState({loading:false})
       this.setState({articles:parsedData.articles,totalResults:parsedData.totalResults})
+
+    }
+
+    async componentDidMount(){
+    
+      this.UpdateNews();
     }
 
     
     handlePreviousClick =async()=>{
       
-        console.log("Previous click");
-        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4136a686f9784b0cae639181c30d9814&page=${this.state.page-1}&pagesize=${this.props.pagesize}`;
-        this.setState({loading:true})
-        let data=await fetch(url);
-        let parsedData=await data.json();
-        this.setState({loading:false})
-        this.setState({
-          articles:parsedData.articles,
-          page:this.state.page-1
-        })
+       await this.setState({page:this.state.page+1})
+
+        this.UpdateNews();
       
     }
 
     handleNextClick =async()=>{
-      if(this.state.page +1>Math.ceil(this.state.totalResults/20))
-      {
-        
-      }
-      else
-      {
      
-      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4136a686f9784b0cae639181c30d9814&page=${this.state.page+1}&pagesize=${this.props.pagesize}`;
-      this.setState({loading:true})
-      let data=await fetch(url);
-      let parsedData=await data.json();
-      this.setState({loading:false})
-      this.setState({
-        articles:parsedData.articles,
-        page:this.state.page+1
-      })
+      await this.setState({page:this.state.page+1})
+
+      this.UpdateNews();
+
+      
     }
 
-    }
-
-
+  
 
   render() {
 
@@ -87,7 +82,8 @@ export class News extends Component {
  
     return (
       <div className='container my-3' >
-    <h1 className='text-center my-4' style={{margin:"30px 0px"}}>NewsMonkey - TOP HEADLINES</h1> 
+    <h1 className='text-center my-4' style={{margin:"30px 0px"}}>NewsMonkey - TOP HEADLINES for <span style={{color:"red"}}>{this.capitalizeFirstLetter(this.props.category)}</span> category
+    </h1> 
     <div className="text-center my-4">
     {this.state.loading && <Spinner/>}
     </div>  
@@ -102,6 +98,7 @@ export class News extends Component {
        <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handlePreviousClick}>&larr; Previous</button>
         <button disabled={this.state.page +1>Math.ceil(this.state.totalResults/20)} type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
         </div>  
+        
 
     </div>
     
