@@ -19,12 +19,12 @@ export class News extends Component {
 
   
 
-    articles=[ ]
+    
         
     constructor(){
         super();
         this.state={
-            articles:this.articles,
+            articles:[],
             loading:false,
             page:1 //current state
 
@@ -94,7 +94,7 @@ export class News extends Component {
     <div className='row'>
       {!this.state.loading && this.state.articles.map((element)=>{
        return  <div className='col-md-4 my-3' key={element.url}>
-        <NewsItem title={element.title.slice(0,44)} description={element.description?.slice(0,88)} newsUrl={element.url} ImageUrl={element.urlToImage}/> 
+        <NewsItem title={element.title.slice(0,44)} description={element.description?.slice(0,88)} newsUrl={element.url} ImageUrl={element.urlToImage} author={element.author} date={element.publishedAt} source={element.source.name}/> 
         </div>
       })}
        </div>   
