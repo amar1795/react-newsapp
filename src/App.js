@@ -2,7 +2,7 @@ import './App.css';
 import LoadingBar from 'react-top-loading-bar'
 
 
-import React, { Component } from 'react'
+import React, { Component,useEffect,useState } from 'react'
 import NavBar from './components/NavBar';
 import News from './components/News';
 import {
