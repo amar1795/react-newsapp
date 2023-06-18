@@ -13,7 +13,7 @@ import {
 
 const App =()=> {
   const pageSize=12;
-  const apikey=process.env.local;
+  const apikey=process.env.REACT_APP_NEWS_API;
 
   
 
