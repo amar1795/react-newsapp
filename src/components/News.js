@@ -40,6 +40,7 @@ const News =(props)=> {
     }
       useEffect (()=>{
         UpdateNews();
+        // eslint-disable-next-line
       },[])
     
 
@@ -86,7 +87,7 @@ const News =(props)=> {
  
     return (
       <div className='container my-3' >
-    <h1 className='text-center my-4' style={{margin:"30px 0px"}}>NewsMonkey - TOP HEADLINES for <span style={{color:"red"}}>{capitalizeFirstLetter(props.category)}</span> category
+    <h1 className='text-center my-4' style={{margin:"90px 0px"}}>NewsMonkey - TOP HEADLINES for <span style={{color:"red"}}>{capitalizeFirstLetter(props.category)}</span> category
     </h1> 
     <div className="text-center my-4">
     {loading && <Spinner/>}
