@@ -12,7 +12,7 @@ const News =(props)=> {
   const [totalResults,settotalResults]=useState(0);
 
   
-  // document.title=`${this.capitalizeFirstLetter(props.category)}-News Monkey`
+  
     const capitalizeFirstLetter= (string)=>{
       return string.charAt(0).toUpperCase()+string.slice(1);
 
@@ -39,6 +39,7 @@ const News =(props)=> {
 
     }
       useEffect (()=>{
+        document.title=`${capitalizeFirstLetter(props.category)}-News Monkey`
         UpdateNews();
         // eslint-disable-next-line
       },[])
